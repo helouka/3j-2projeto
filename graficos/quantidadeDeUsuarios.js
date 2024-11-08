@@ -1,17 +1,19 @@
-import { getCSS, tickfont } from "./comum.js"; 
+import { getCSS } from "./comum.js";
+import { tickfont } from "./comum.js";
 
-async function quantidadeDeUsuarios(){
+async function quantidadeusuarios(){
     const url = 'https://raw.githubusercontent.com/guilhermeonrails/api/main/numero-usuarios.json'
     const resultado = await fetch(url);
     const dados = await resultado.json();
-    const nomeDasRedes = Object.keys(dados);
-    const quantidadeDeUsuarios = Object.values(dados);
-    
+    const nomeredes = Object.keys(dados);
+    const quantidadeusuarios = Object.values(dados);
+
+
     const infos = [
         {
-            x: nomeDasRedes,
-            y: quantidadeDeUsuarios,
-            type: 'bar',
+            x: nomeredes,
+            y: quantidadeusuarios,
+            type: 'bar', 
             marker: {
                 color: getCSS('--cor-primaria')
             }
@@ -21,42 +23,39 @@ async function quantidadeDeUsuarios(){
         plot_bgcolor: getCSS('--cor-de-fundo'),
         paper_bgcolor: getCSS('--cor-de-fundo'),
         title: {
-            text: 'Redes sociais com mais usuários no mundo',
-            x:0,
-            font: {
+            text: 'Redes sociais com mais usuarios no mundo',
+            x: 0, // Coloco o titulo mais a esquerda,
+            font:{
                 color: getCSS('--cor-primaria'),
-                family: getCSS('--fonte'),
+                family: getCSS ('--fonte'),
                 size: 30
-
             }
-
-        } ,
-        xaxis:{
+        },
+        xaxis:{ 
             tickfont: tickfont,
             title:{
-                text: 'Nome das redes sociais'
+                text: 'Nome das redes sociais',
                 font:{
                     color: getCSS('--cor-secundaria')
                 }
             }
 
-
         },
         yaxis:{
             tickfont: tickfont,
             title:{
-                text: 'Milhões de usuários ativos',
-                font: {
+                text: 'Milhoes de usuario ativos',
+                font:{
                     color: getCSS('--cor-secundaria')
                 }
-                
             }
         }
     }
+
     const grafico = document.createElement('div');
-    grafico.className = 'grafico';
+    grafico.className = 'grafico'
     document.getElementById('graficos-container').appendChild(grafico);
     Plotly.newPlot(grafico,infos,layout)
-}
+} 
 
-quantidadeDeUsuarios()
+quantidadeusuarios()
